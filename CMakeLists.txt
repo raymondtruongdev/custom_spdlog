@@ -7,6 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add spdlog as subdirectory
 add_subdirectory(deps/spdlog)
 
+# Set the log level of 'spdlog' globally to control which log messages are displayed
+# + SPDLOG_LEVEL_TRACE
+# + SPDLOG_LEVEL_DEBUG
+# + SPDLOG_LEVEL_INFO
+# + SPDLOG_LEVEL_WARN
+# + SPDLOG_LEVEL_ERROR
+# + SPDLOG_LEVEL_CRITICAL
+# + SPDLOG_LEVEL_OFF
+add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO)
+
 # Create the main library (header-only)
 add_library(custom_spdlog INTERFACE)
 

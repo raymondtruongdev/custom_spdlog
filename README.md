@@ -29,6 +29,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add custom_spdlog as subdirectory
 add_subdirectory(deps/custom_spdlog)
 
+# Set the log level of 'spdlog' globally to control which log messages are displayed
+add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO)
+
 # Your executable or library
 add_executable(your_target main.cpp)
 target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
@@ -51,6 +54,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(custom_spdlog)
 
+# Set the log level of 'spdlog' globally to control which log messages are displayed
+add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO)
+
+
 # Your executable or library
 add_executable(your_target main.cpp)
 target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
@@ -62,7 +69,10 @@ target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
 #include "logger.hpp"
 
 int main() {
-    Logger::setLevel("trace");
+    Logger::setLevel("warn");
+    // Optional: set local level here must less than or equal to the level (SPDLOG_ACTIVE_LEVEL) in
+    //  'CMakeLists.txt' of root directory
+    
     LOG_TRACE("Demo log a TRACE message");
     LOG_DEBUG("Demo log a DEBUG message");
     LOG_INFO("Demo log a INFO message {}", 8080);
@@ -80,6 +90,41 @@ int main() {
 - `LOG_ERROR(msg, ...)` - Red color
 - `LOG_CRITICAL(msg, ...)` - Pink color
 - 
+## SET LOG LEVEL FOR SHOWING:
+### Global Log Level
+You can set the log level globally in your `CMakeLists.txt` file. This will control which log messages are displayed based on the level you set.
+
+ Can set the log level here:
+ + `SPDLOG_LEVEL_TRACE`
+ + `SPDLOG_LEVEL_DEBUG`
+ + `SPDLOG_LEVEL_INFO`
+ + `SPDLOG_LEVEL_WARN`
+ + `SPDLOG_LEVEL_ERROR`
+ + `SPDLOG_LEVEL_CRITICAL`
+ + `SPDLOG_LEVEL_OFF`
+
+```cmake
+# Example: Set log level to WARN : means only WARN, ERROR, and CRITICAL messages will be shown
+add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_WARN)
+```
+### Local Log Level
+You can also set the log level locally in your code. This allows you to control the log level for specific parts of your application.
+
+```cpp
+int main() {
+    // Optional: set local level here must less than or equal to the level (SPDLOG_ACTIVE_LEVEL) in
+    //  'CMakeLists.txt' of root directory
+    Logger::setLevel("warn");
+   
+    LOG_TRACE("Demo log a TRACE message");
+    LOG_DEBUG("Demo log a DEBUG message");
+    LOG_INFO("Demo log a INFO message {}", 8080);
+    LOG_WARN("Demo log a WARN message");
+    LOG_ERROR("Demo log a ERROR message : {}", "error message");
+    return 0;
+}
+```
+
 # Modification this library
 1. Run 'init_project.sh' to initialize the project and download dependencies.
 2. Modify code in `logger.hpp` as needed.

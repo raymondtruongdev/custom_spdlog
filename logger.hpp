@@ -33,7 +33,7 @@ public:
             // %v   - log message (we include [file:line] in macros)
             // %$   - reset color
             logger->set_pattern("%^[%T] [%l] %v%$");
-            logger->set_level(spdlog::level::info); // default log level
+            logger->set_level(spdlog::level::trace); // default log level
         }
     }
 

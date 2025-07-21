@@ -2,7 +2,10 @@
 #include "logger.hpp"
 
 int main() {
-    Logger::setLevel("trace");
+    // Optional: set local level here must less than or equal to the level (SPDLOG_ACTIVE_LEVEL) in
+    // CMakeLists.txt of root directory
+    Logger::setLevel("warn");
+
     LOG_TRACE("Demo log a TRACE message");
     LOG_DEBUG("Demo log a DEBUG message");
     LOG_INFO("Demo log a INFO message {}", 8080);

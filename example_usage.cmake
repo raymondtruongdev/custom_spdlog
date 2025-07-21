@@ -11,14 +11,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # git submodule update --init --recursive
 add_subdirectory(deps/custom_spdlog)
 
-# Option 2: Using FetchContent (download automatically)
-# include(FetchContent)
-# FetchContent_Declare(
-#     custom_spdlog
-#     GIT_REPOSITORY https://github.com/raymondtruongdev/custom_spdlog.git
-#     GIT_TAG master  # or specific version tag
-# )
-# FetchContent_MakeAvailable(custom_spdlog)
+# Option 2: Using FetchContent (download automatically) the custom_spdlog library
+#include(FetchContent)
+#FetchContent_Declare(
+#        custom_spdlog
+#        GIT_REPOSITORY https://github.com/raymondtruongdev/custom_spdlog.git
+#        GIT_TAG master  # or specific version tag
+#)
+#FetchContent_MakeAvailable(custom_spdlog)
 
 # Your application/library
 add_executable(my_app main.cpp)

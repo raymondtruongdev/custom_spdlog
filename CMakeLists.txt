@@ -20,9 +20,6 @@ add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO)
 # Create the main library (header-only)
 add_library(custom_spdlog INTERFACE)
 
-# Set the PROJECT_ROOT define for relative paths
-target_compile_definitions(custom_spdlog INTERFACE PROJECT_ROOT="${CMAKE_CURRENT_SOURCE_DIR}")
-
 # Include directories
 target_include_directories(custom_spdlog INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

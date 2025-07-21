@@ -26,6 +26,9 @@ project(my_project)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set variable PROJECT_ROOT as the root directory of the project, we can use it in our source files
+add_compile_definitions(PROJECT_ROOT="${CMAKE_SOURCE_DIR}")
+
 # Add custom_spdlog as subdirectory
 add_subdirectory(deps/custom_spdlog)
 
@@ -44,6 +47,9 @@ cmake_minimum_required(VERSION 3.31)
 project(my_project)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Set variable PROJECT_ROOT as the root directory of the project, we can use it in our source files
+add_compile_definitions(PROJECT_ROOT="${CMAKE_SOURCE_DIR}")
 
 #Using FetchContent (download automatically) the custom_spdlog library
 include(FetchContent)
@@ -124,6 +130,14 @@ int main() {
     return 0;
 }
 ```
+## Config for a path file where print log messages
+```cmake
+# Example: Set log level to WARN : means only WARN, ERROR, and CRITICAL messages will be shown
+# Set to 1 for full path of file in logging, 0 for relative paths
+add_compile_definitions(USE_ABSOLUTE_PATHS_IN_LOGS=0)
+```
+
+
 
 # Modification this library
 1. Run 'init_project.sh' to initialize the project and download dependencies.

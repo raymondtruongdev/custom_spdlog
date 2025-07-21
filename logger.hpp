@@ -17,10 +17,13 @@
 #define PROJECT_ROOT "" // fallback for compilation
 #endif
 
+#ifndef USE_ABSOLUTE_PATHS_IN_LOGS
+#define USE_ABSOLUTE_PATHS_IN_LOGS 0 // Set to 1 to use full paths in logs, 0 for relative paths
+// Note: The relative path only works if PROJECT_ROOT is set correctly in CMakeLists.txt of your project
+#endif
 
 
 class Logger {
-    static constexpr bool IS_USING_FULLPATH_FILE_LINE = false; // Set "false" to use relative paths in logs
 public:
     static void init() {
         if (!logger) {
@@ -72,7 +75,7 @@ public:
         std::string fileName;
         // Format: absolute_path:line
         // CLion and many IDEs recognize this format as clickable
-        if (IS_USING_FULLPATH_FILE_LINE)
+        if( (USE_ABSOLUTE_PATHS_IN_LOGS) || (PROJECT_ROOT==""))
             fileName = filePath;
         else
             fileName = getRelativePath(filePath);

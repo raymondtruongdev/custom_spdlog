@@ -26,7 +26,7 @@ target_link_libraries(custom_spdlog INTERFACE spdlog::spdlog)
 add_library(custom_spdlog::custom_spdlog ALIAS custom_spdlog)
 
 # Optional: Build example executable (can be disabled with -DBUILD_EXAMPLES=OFF)
-option(BUILD_EXAMPLES "Build example programs" ON)
+option(BUILD_EXAMPLES "Build example programs" OFF)
 if(BUILD_EXAMPLES)
     add_executable(custom_spdlog_example main.cpp)
     target_link_libraries(custom_spdlog_example PRIVATE custom_spdlog::custom_spdlog)

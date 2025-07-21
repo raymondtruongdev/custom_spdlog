@@ -16,7 +16,7 @@ add_subdirectory(deps/custom_spdlog)
 # FetchContent_Declare(
 #     custom_spdlog
 #     GIT_REPOSITORY https://github.com/raymondtruongdev/custom_spdlog.git
-#     GIT_TAG main  # or specific version tag
+#     GIT_TAG master  # or specific version tag
 # )
 # FetchContent_MakeAvailable(custom_spdlog)
 

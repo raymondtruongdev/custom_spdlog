@@ -1,0 +1,7 @@
+# Hidden files and folders
+.*/
+# Ignore build folder
+build/
+bin/
+cmake-build-*/
+

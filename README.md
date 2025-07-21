@@ -1,10 +1,9 @@
 # Custom spdlog Library
 
-A C++20 header-only logging library wrapper around [spdlog](https://github.com/gabime/spdlog) with colorized output and clickable file links.
+A custom logging library wrapper around [spdlog](https://github.com/gabime/spdlog) with colorized output and clickable file links.
 
 ## Features
 
-- Header-only library
 - Colorized log output with different colors for each log level
 - Clickable file:line links in IDEs (like CLion)
 - Easy integration with CMake projects
@@ -16,7 +15,7 @@ A C++20 header-only logging library wrapper around [spdlog](https://github.com/g
 
 1. Add this repository as a submodule to your project:
 ```bash
-git submodule add https://github.com/your-username/custom_spdlog.git deps/custom_spdlog
+git submodule add https://github.com/raymondtruongdev/custom_spdlog.git deps/custom_spdlog
 git submodule update --init --recursive
 ```
 
@@ -24,7 +23,6 @@ git submodule update --init --recursive
 ```cmake
 cmake_minimum_required(VERSION 3.31)
 project(my_project)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -32,13 +30,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(deps/custom_spdlog)
 
 # Your executable or library
-add_executable(my_app main.cpp)
-target_link_libraries(my_app PRIVATE custom_spdlog::custom_spdlog)
+add_executable(your_target main.cpp)
+target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
 ```
 
 ### Using FetchContent
 
 ```cmake
+cmake_minimum_required(VERSION 3.31)
+project(my_project)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+#Using FetchContent (download automatically) the custom_spdlog library
 include(FetchContent)
 FetchContent_Declare(
     custom_spdlog
@@ -47,6 +51,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(custom_spdlog)
 
+# Your executable or library
+add_executable(your_target main.cpp)
 target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
 ```
 
@@ -65,7 +71,6 @@ int main() {
     return 0;
 }
 ```
-
 ## Available Log Levels
 
 - `LOG_TRACE(msg, ...)` - Gray color
@@ -74,36 +79,11 @@ int main() {
 - `LOG_WARN(msg, ...)`  - Yellow color
 - `LOG_ERROR(msg, ...)` - Red color
 - `LOG_CRITICAL(msg, ...)` - Pink color
+- 
+# Modification this library
+1. Run 'init_project.sh' to initialize the project and download dependencies.
+2. Modify code in `logger.hpp` as needed.
+3. Change option(`BUILD_EXAMPLES "Build example programs" ON`) in the `CMakeLists.txt` to build example for testing/debugging purposes.
+4. Commit your changes and push to repository ( Remember set: `Change option(BUILD_EXAMPLES "Build example programs" OFF` in the `CMakeLists.txt` to do not build example programs in release).
 
-## Building Examples
 
-```bash
-mkdir build && cd build
-cmake ..
-make
-./custom_spdlog_example
-```
-
-To disable building examples:
-```bash
-cmake -DBUILD_EXAMPLES=OFF ..
-```
-
-## Installation
-
-```bash
-mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
-make install
-```
-
-Then in other projects, you can find and use the library:
-```cmake
-find_package(custom_spdlog REQUIRED)
-target_link_libraries(your_target PRIVATE custom_spdlog::custom_spdlog)
-```
-
-## Requirements
-
-- C++20 compatible compiler
-- CMake 3.31 or higher

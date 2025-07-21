@@ -2,7 +2,10 @@
 
 set -e  # Exit if any command fails
 
-echo "🔧 Pull spdlog Repo as a submodule..."
+# Configure spdlog version to use
+SPDLOG_VERSION=${SPDLOG_VERSION:-v1.15.3}
+
+echo "⚙️  Setting up spdlog submodule..."
 
 # Check if submodule already exists and remove it for fresh pull
 if [ -d "deps/spdlog" ]; then
@@ -17,10 +20,16 @@ if [ -d "deps/spdlog" ]; then
   rm -rf ./deps/spdlog
 fi
 
-echo "📥 Adding spdlog as fresh submodule..."
+echo "🔗 Adding spdlog as fresh submodule..."
 git submodule add https://github.com/gabime/spdlog deps/spdlog
 
-echo "📥 Initializing and updating submodules..."
+echo "🔄 Initializing and updating submodules..."
 git submodule update --init --recursive
 
-echo "✅ Submodules ready."
+echo "📌 Checking out specific spdlog version: $SPDLOG_VERSION"
+cd deps/spdlog
+# Create and switch to a local branch for the specific version
+git checkout -b local-$SPDLOG_VERSION tags/$SPDLOG_VERSION
+cd ../..
+
+echo "✅ Submodule setup complete!"
